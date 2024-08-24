@@ -23,4 +23,4 @@ Message IDs and Formats
 * LED 1 - 0xC000 - 0 to 255 integer representing brightness  
 * LED 2 - 0xC001 - 0 to 255 integer representing brightness  
 * LED 3 - 0xC002 - 0 to 255 integer representing brightness  
-* LED 4 - 0xC003 - 0 to 255 integer representing brightness  ![image](https://github.com/user-attachments/assets/71cfb836-0889-4e46-9583-ad57bdcbd79b)
+* LED 4 - 0xC003 - 0 to 255 integer representing brightness
