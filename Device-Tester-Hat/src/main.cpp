@@ -21,6 +21,12 @@
 #define POTENTIOMETER_UPDATE_INTERVAL 15000 //[ms]
 #define BUTTON_UPDATE_INTERVAL 100 //[ms]
 
+#define WARN_THRESHOLD 3000
+#define ALERT_THRESHOLD 4000
+
+#define WARN_ID 0x384 //900
+#define ALERT_ID 0x385 //901
+
 //Manual node ID
 #define NODE_ID 0xAA
 
@@ -74,10 +80,41 @@ void receive_message(uint8_t nodeID, uint16_t messageID, uint64_t data) {
 }
 
 void readPotentiometer(void *parameters) {
+  uint8_t hasSendWarn = 0;
+  uint8_t hasSendAlert = 0;
+  uint8_t hasSendNOError = 0;
   while (true) {
     //Read the potentiometer value
     uint64_t data = analogRead(POTENTIOMETER);
     core.sendMessage(0xB000, &data);
+    Serial.println("Potentiometer value: " + String(data));
+    uint64_t errorData1 = 1;
+    uint64_t errorData0 = 0;
+    if(data >= WARN_THRESHOLD && data < ALERT_THRESHOLD){
+      if(!hasSendWarn){
+        core.sendMessage(ALERT_ID, &errorData0);
+        core.sendMessage(WARN_ID, &errorData1);
+        hasSendWarn = 1;
+        hasSendNOError = 0;
+      }
+      
+    }else if(data >= ALERT_THRESHOLD){
+      if(!hasSendAlert){
+        core.sendMessage(ALERT_ID, &errorData1);
+        core.sendMessage(WARN_ID, &errorData0);
+        hasSendAlert = 1;
+        hasSendNOError = 0;
+      }
+    }
+    else{
+      if(!hasSendNOError){
+        core.sendMessage(ALERT_ID, &errorData0);
+        core.sendMessage(WARN_ID, &errorData0);
+        hasSendNOError = 1;
+        hasSendAlert = 0;
+        hasSendWarn = 0;
+      }
+    }
     delay(POTENTIOMETER_UPDATE_INTERVAL);
   }
 }
