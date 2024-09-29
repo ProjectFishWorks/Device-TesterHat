@@ -18,7 +18,7 @@
 #define POTENTIOMETER 0
 
 //Update intervals
-#define POTENTIOMETER_UPDATE_INTERVAL 5000 //[ms]
+#define POTENTIOMETER_UPDATE_INTERVAL 15000 //[ms]
 #define BUTTON_UPDATE_INTERVAL 100 //[ms]
 
 //Manual node ID
