@@ -90,18 +90,11 @@ void readPotentiometer(void *parameters) {
     Serial.println("Potentiometer value: " + String(data));
     uint64_t errorData1 = 1;
     uint64_t errorData0 = 0;
-    if(data >= WARN_THRESHOLD && data < ALERT_THRESHOLD){
-      if(!hasSendWarn){
-        core.sendMessage(ALERT_ID, &errorData0);
-        core.sendMessage(WARN_ID, &errorData1);
-        hasSendWarn = 1;
-        hasSendNOError = 0;
-      }
+   
       
-    }else if(data >= ALERT_THRESHOLD){
+    if(data >= ALERT_THRESHOLD){
       if(!hasSendAlert){
         core.sendMessage(ALERT_ID, &errorData1);
-        core.sendMessage(WARN_ID, &errorData0);
         hasSendAlert = 1;
         hasSendNOError = 0;
       }
@@ -109,10 +102,8 @@ void readPotentiometer(void *parameters) {
     else{
       if(!hasSendNOError){
         core.sendMessage(ALERT_ID, &errorData0);
-        core.sendMessage(WARN_ID, &errorData0);
         hasSendNOError = 1;
         hasSendAlert = 0;
-        hasSendWarn = 0;
       }
     }
     delay(POTENTIOMETER_UPDATE_INTERVAL);
