@@ -1,18 +1,21 @@
 # Device-TesterHat
 
+![alt text](Pictures/NodeV1WithHat.jpg)
+
 ## Overview
 
-A test device to facilitate easy testing of various system function. Has four DIP switches for digital input, one pot for analog input, and four LEDs for analog(PWM)/digital output. All devices are attached to a small protoboard that is directly connected to the node controller's headers. This is a internal test device and as such will likely never been made into a finalized production device.
+A test device to facilitate easy testing of various system function. Has four DIP switches for digital input, one pot for analog input, and four LEDs for analog(PWM)/digital output. All devices are attached to a small protoboard that is directly connected to the node controller's headers. This is a internal test device and as such will likely never been made into a finalized production device. A protoboard hat was only ever created for the Node Controller V1 PCB, however, the firmware was used with the Node Controller V2 PCB, but with no attached hardware.
 
 ## Hardware
 
 Known Issues
 * LEDs are all wired through one current limiting resistor(1k) so brightness is inconsistent
-* Switch 4 is not working, likely a wiring issue 
+
+![alt text](Pictures/Schematic.png)
 
 ## Firmware
 
-Message IDs and Formats
+### Message IDs and Formats
 
 * Pot - 0xB000 - 0 to 4096 integer
 * Button 1 - 0xB001 - 1 bit bool
