@@ -1,6 +1,8 @@
 #include <NodeControllerCore.h>
 
-#define DEBUG 1
+#define DEBUG 1 //Set to 1 to enable debug messages
+
+#define NODE_ID 0xAA  //170
 
 //Button pins
 #define BUTTON_1 3
@@ -26,9 +28,6 @@
 
 #define WARN_ID 0x384 //900
 #define ALERT_ID 0x385 //901
-
-//Manual node ID
-#define NODE_ID 0xAA
 
 //State of the buttons last time they were read
 uint64_t previousButtonStates[4] = {0, 0, 0, 0};
@@ -196,7 +195,7 @@ void setup() {
 
 }
 
-void loop() {
+void loop() 
+{
   //Empty loop as all the tasks are running in FreeRTOS
-
 }
